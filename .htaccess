@@ -1,0 +1,66 @@
+RewriteEngine On
+RewriteRule ^index.php$ / [QSA,R]
+Header append Vary User-Agent
+<ifModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript
+</ifModule>
+
+<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|woff|ttf|swf)$">
+ExpiresActive On
+ExpiresDefault "access plus 11 month"
+Header append Cache-Control "public"
+</filesMatch>
+
+
+<IfModule mod_expires.c>
+ 	  ExpiresActive On
+#по умолчанию кеш в 5 секунд
+      ExpiresDefault "access plus 20 seconds"
+
+# Add correct content-type for fonts
+	  AddType application/vnd.ms-fontobject .eot
+	  AddType application/x-font-ttf .ttf
+	  AddType application/x-font-opentype .otf
+	  AddType application/x-font-woff .woff
+	  AddType image/svg+xml .svg
+
+# Compress compressible fonts
+	  AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-opentype image/svg+xml
+
+# Cache Fonts
+	  ExpiresByType application/vnd.ms-fontobject "access plus 2592000 seconds"
+	  ExpiresByType application/x-font-ttf "access plus 2592000 seconds"
+	  ExpiresByType application/x-font-opentype "access plus 2592000 seconds"
+	  ExpiresByType application/x-font-woff "access plus 2592000 seconds"
+	  ExpiresByType image/svg+xml "access plus 2592000 seconds"
+
+#кэшировать флэш и изображения на месяц
+      ExpiresByType image/x-icon "access plus 2592000 seconds"
+      ExpiresByType image/jpg "access plus 2592000 seconds"
+      ExpiresByType image/jpeg "access plus 2592000 seconds"
+      ExpiresByType image/png "access plus 2592000 seconds"
+      ExpiresByType image/gif "access plus 2592000 seconds"
+      ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+
+#кэшировать css, javascript и текстовые файлы на одну неделю
+      ExpiresByType text/css "access plus 604800 seconds"
+      ExpiresByType text/javascript "access plus 604800 seconds"
+      ExpiresByType application/javascript "access plus 604800 seconds"
+      ExpiresByType application/x-javascript "access plus 604800 seconds"
+
+#кэшировать html и htm файлы на один день
+      ExpiresByType text/html "access plus 43200 seconds"
+
+#кэшировать xml файлы на десять минут
+      ExpiresByType application/xhtml+xml "access plus 600 seconds"
+</IfModule>
+
+<ifModule mod_headers.c>
+Header set Access-Control-Allow-Origin: *
+Header set Connection keep-alive	
+Header append Vary User-Agent
+# 30 дней
+	<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|woff|ttf|swf)$">
+		Header set Cache-Control "max-age=2592000, public"
+	</filesMatch>
+</ifModule>

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /thanks-page/
+Disallow: /controller/
+Host: www.online.steko.com.ua
+Sitemap: httр://online.steko.com.ua/sitemap.xml
